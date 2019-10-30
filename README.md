@@ -1,6 +1,10 @@
 # CSCI-432-Project
 Advanced Algorithms 432: Final Project
 
+# OVERVIEW:
+
+In this project, groups of two to five students will collaborate to investigate an algorithm from a "recent" conference or journal. Each group will choose the topic on their own, and become experts on this algorithm. In addition, they will take the paper that they found one step further in the plus-one (+1) element of their project.
+
 ## Part 1: 
 
 One-page summary about an algorithm that we find particularly interesting followed by an explanation and why we find it interesting.
