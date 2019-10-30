@@ -74,3 +74,5 @@ The deliverable is an (up to) two-page write-up identifying the problem being so
 
 - 
 - 
+
+## EC: Up to five points extra credit for using version controll of LaTex documents & other non-video project files.
