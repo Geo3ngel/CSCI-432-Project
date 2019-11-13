@@ -1,7 +1,7 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 
-\title{CSCI 432 Final Project}
+\title{CSCI 432 Final Project - Assignment 2}
 \author{George Engel, Troy Oster, Gavin Austin, Thomas Herndon}
 \date{November 2019}
 
@@ -9,6 +9,42 @@
 
 \maketitle
 
-\section{Introduction}
+\section{Algorithm 1: Bi-directional Breadth First Search}
+
+    Algorithm 1: Bi-directional Breadth First Search. O( (b^d / 2) +( b^d / 2) ) as opposed to O(b^d)
+Our base problem is that we want to find the smallest path from an initial starting vertex s to goal vertex g on graph G. We can assume that the initial state as well as the goal state are both unique and completely defined. Normally this could be done with either breadth first search or depth first search; however, BFS/DFS searching time complexity is O(b^d), where b is the branching factor and d is the distance of the goal vertex g from the source vertex s. This makes it rather unreasonable to find the shortest path of larger trees.
+
+    To add another layer on top of the base problem,let’s specify the type of graph we want to have the same branching factor in both directions from the starting vertex and goal vertex g, such that our graph(s) might look like:
+
+[IMAGE GOES HERE]
+
+    So how do we traverse this tree to find the shortest path such that our searching time complexity is less than O(b^d)? Essentially, we just want a more efficient approach to find the shortest path in a graph. 
+
+    The solution is usage of a bidirectional binary search, which is drastically faster with a search time complexity of O( b^(d / 2) + b^(d / 2) ) and is less than O(b^d) provided the graph contains greater than 4 vertices. 
+
+\section{Algorithm 2: Data Structures with Unpredictable Timing}
+
+    These algorithms work to solve the problems that are presented by a range of attacks on network components, such as algorithmic denial-of-service attacks and cryptanalysis via timing attacks. The attacks are permitted by data structures that allow an adversary to predict the durations of different operations, which he or she will use to generate attacks on the data structure.
+
+    // IMAGE GO HERE
+
+	Algorithms and data structures have been designed to surprise and confuse an adversary who is attempting to predict the timing of future operations to produce an attack upon, even if he or she has adaptive and exclusive access to the data structure and timing of past operations. Additionally, a data structure for implementing a set (supporting membership query, insertion, and deletion) has been designed that demonstrates unpredictable timing while maintaining its efficiency, even when dealing with adversarial attacks.
+
+\section{Algorithm 3: Karatsuba Algorithm}
+
+    Although multiplication is a simple problem, throughout history the best known way to do this was “long multiplication”, a process usually taught in grade school. The Karatsuba Algorithm, developed in 1960, solves this multiplication problem in a revolutionary new way. Before this algorithm, it was thought that multiplication would always run in Ω(n2)time; however, the Karatsuba Algorithm can multiply two numbers in O(nlog23)time. This algorithm works by considering each of the numbers as two digits which allows us to multiply these numbers much faster. The figure below shows how this algorithm functions.
+
+	For multiplying two two-digit numbers, it is obvious that it requires at most 4 single-digit multiplications; however, with just a simple algebraic manipulation this algorithm can complete the same multiplication using only 3 single-digit multiplications.
+
+
+\Section{References}
+
+Bethea and Reiter. Data Structures with Unpredictable Timing. ESORICS, 2009.
+
+“Bidirectional Search.” GeeksforGeeks, 12 June 2017, www.geeksforgeeks.org/bidirectional-search/.
+
+Holte, Robert C. et al. “Bidirectional Search That Is Guaranteed to Meet in the Middle.” AAAI (2015).
+
+X. Fang and L. Li, "On Karatsuba Multiplication Algorithm," The First International Symposium on Data, Privacy, and E-Commerce (ISDPE 2007), Chengdu, Sichuan, 2007, pp. 274-276. doi: 10.1109/ISDPE.2007.11
 
 \end{document}
