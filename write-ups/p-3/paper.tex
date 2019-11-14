@@ -1,14 +1,72 @@
+ 
 \documentclass{article}
+\usepackage[english]{babel}
 \usepackage[utf8]{inputenc}
+\usepackage{fancyhdr}
+\usepackage{fasy-hw}
 
-\title{CSCI 432 Final Project}
-\author{George Engel, Troy Oster, Gavin Austin, Thomas Herndon}
-\date{November 2019}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Project 3: Burrows-Wheeler Transform}
+\rhead{Troy Oster, George Engel, Gavin Austin}
 
 \begin{document}
+   The Burrows-Wheeler transform is an algorithm created by Michael Burrows and David Wheeler in 1994 at the DEC Systems Research Center in California. This algorithm is primary used in compression, as it transforms a character string into other strings of similar characters. This algorithm was designed to solve a specific problem with compression. This problem was the costly nature of data preparation for use in the data compression algorithms/techniques at the time. This algorithm solves this problem quite elegantly. Just by being faster than every other known data preparation technique at the time.
 
-\maketitle
+   The important thing to know about the transformation produced by this algorithm is that it is reversible. [1] To be fully reversed, the transformation only needs to store the position of the original first character. The Burrows-Wheeler transform improves the efficiency of almost all text compression algorithms, as it only costs a small amount of extra computation. [1] Due to this ability to improve compression efficiency, it is often used to prepare the data used in data/text compression techniques. 
+   
+   The basic explanation of the Burrows-Wheeler algorithm is that it takes in a string as an input, and outputs a string composed of similar letters to those present in the input string. This output string has many repeated characters, this property of repeated characters makes the output easier to compress than the original input. This, through an optimization of the input, optimizes (almost) any compression algorithm used. [1]
+   
+   The transform performed by the Burrows-Wheeler algorithm is completed by creating circular shifts of text and then sorting them by lexicographic order. After sorting is complete, the last column and the index of the input string in the set of sorted permutations, are then extracted. The characters found in the last column are then concatenated and the resulting string is the output of the Burrows-Wheeler Transform. [1]
+   
+   This algorithm, despite having been invented in 1994, is still in use in many fields of research today. The primary field of use for the Burrows-Wheeler algorithm is Bioinformatics. Variations of this algorithm and more complex implementations of this algorithm, such as the Burrows-Wheeler Alignment (BWA), have been shown to be roughly 10-20x faster than other commonly used methods for alignment. [2]
+   
+   
+\textbf{Pseudo Code}
 
-\section{Introduction}
+    
+    \boldsymbol{Let: $String S of N characters \in some character alphabet X.$}
+    
+    \begin{algorithm}
+        \caption{Reversible Transformation}
+        \begin{algorithmic}
+            \Procedure{Compression\_Transform}{$S$}
+            \State M \gets char[N][N]      \Comment{Define M as an N x N Matrix of chars}
+            \For{int i = 0; i $<$ len(S); i++}
+                \State M[i]$ \gets$ Shift(S,i) \Comment{Sets M[i] to the char set shifted by i}
+            \EndFor
+            \State lexicographic\_sort(M)
+            
+            \State $L \gets M.col(-1)$ \Comment{Set L as the last column from the matrix}
+            \State $return$ $L$
+            \EndProcedure
+        \end{algorithmic}
+    \end{algorithm}
 
+    \begin{algorithm}
+        \caption{Decompression Transformation}
+        \begin{algorithmic}
+            \Procedure{Decompression\_Transform}{$L$}
+            \State $F \gets lexicographic\_sort(L)$
+            \State $M$\Comment{A table that will eventually hold M from Algorthim 1}
+            \For{int i = 0; i $<$ len(L); i++}
+                \State M.prepend(S) \Comment{Prepend the string $L$ to the table $M$}
+                \State lexicographic\_sort(M)
+            \EndFor
+           \State $I\gets 0$
+            \While{M[I][n-1]!=EOF}
+                \State $I\gets I+1$
+            \EndWhile
+            \State $S \gets M[I]$ \Comment{Set S as the row that ends in a end of file character}
+            \State $return$ $S$
+            \EndProcedure
+        \end{algorithmic}
+    \end{algorithm}
+       
+   \section{References}
+    \makebox[.5cm]{[1]}  Burrows, Michael; Wheeler, David J. (1994), A block sorting lossless data compression algorithm, Technical Report 124, Digital Equipment Corporation\par
+    \makebox[.5cm]{[2]} Heng Li, Richard Durbin, Fast and accurate short read alignment with Burrows–Wheeler transform, Bioinformatics, Volume 25, Issue 14, 15 July 2009, Pages 1754–1760, https://doi.org/10.1093/bioinformatics/btp324\par
+    \makebox[.5cm]{[4]} \par
+    \makebox[.5cm]{[5]} \par
+    \makebox[.5cm]{[6]} \par
 \end{document}

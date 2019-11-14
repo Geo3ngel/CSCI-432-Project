@@ -1,0 +1,354 @@
+% Template taken from https://www.sharelatex.com/templates/journals/template-for-the-journal-of-machine-learning-research-jmlr
+
+\documentclass[twoside,11pt]{article}
+
+% Any additional packages needed should be included after jmlr2e.
+% Note that jmlr2e.sty includes epsfig, amssymb, natbib and graphicx,
+% and defines many common macros, such as 'proof' and 'example'.
+%
+% It also sets the bibliographystyle to plainnat; for more information on
+% natbib citation styles, see the natbib documentation, a copy of which
+% is archived at http://www.jmlr.org/format/natbib.pdf
+
+\usepackage{jmlr2e}
+\usepackage{amsmath}
+\usepackage{multirow}
+% Definitions of handy macros can go here
+
+\newcommand{\dataset}{{\cal D}}
+\newcommand{\fracpartial}[2]{\frac{\partial #1}{\partial  #2}}
+
+% Heading arguments are {volume}{year}{pages}{submitted}{published}{author-full-names}
+
+\jmlrheading{1}{2019}{1-10}{9/19}{9/19}{George Engel, Troy Oster, Dana Parker, Henry Soule}
+
+% Short headings should be running head and authors last names
+
+\ShortHeadings{CSCI 447: Project 3}{Engel, Oster, Parker, Soule}
+\firstpageno{1}
+
+\begin{document}
+
+\title{CSCI 447: Project 3}
+
+\author{\name George Engel \email GeoEngel.z@gmail.com \\
+       \addr Department of Engineering\\
+       Montana State University\\
+       Bozeman, MT 59715, USA
+       \AND
+       \name Troy Oster \email toster1011@gmail.com \\
+       \addr Department of Engineering\\
+       Montana State University\\
+       Bozeman, MT 59715, USA
+       \AND
+       \name Dana Parker \email danaharmonparker@gmail.com \\
+       \addr Department of Engineering\\
+       Montana State University\\
+       Bozeman, MT 59715, USA
+       \AND
+       \name Henry Soule \email hsoule427@gmail.com \\
+       \addr Department of Engineering\\
+       Montana State University\\
+       Bozeman, MT 59715, USA}
+
+\editor{Engel et al.}
+
+\maketitle
+
+\begin{abstract}%   <- trailing '%' for backward compatibility of .sty file
+For this project we implemented two neural networks --- a multi-layer feedforward neural network with backpropogation learning, and a radial basis function neural network. To implement the radial basis function neural network, we need to utilize three of four of the following algorithms; $k$-means clustering, $k$-medoids clustering, and either condensed or edited nearest neighbors. Whichever produces a smaller dataset. The radial basis will use the centroids, medoids, and generated dataset respectively, of these three algorithms as a hidden layer. Overall, both the feedforward and radial basis function neural network could classify about half of data examples correctly regardless of the number of possible classifications. The radial basis function neural network tended to perform regression than the feedforward neural network, with low observed differences between actual and desired outcomes.
+
+% To utilize these neural networks, we implemented five algorithms --- $k$-nearest neighbors, edited-nearest neighbors, condensed-nearest neighbors, $k$-means clustering, and $k$-medoids clustering --- on six different data sets. For three of these data sets, the goal was to create a model to classify the data; for the other three data sets, the goal was to perform regression. The purpose of these algorithms, with the exception of $k$-nearest neighbors, was to reduce the size of the training data (for which we used to create learning models) utilized by $k$-nearest neighbors to perform classification or regression upon a testing set. By reducing the size of the training data, we hoped to improve the performance of our classification/regression done by $k$-nearest neighbors. Thus, we hypothesize that, on average, classification/regression performance will improve with an algorithm-reduced training data.
+
+
+\end{abstract}
+
+
+\begin{keywords}
+    Neural network, feedforward neural network, backpropogation, radial basis function, $k$-means clustering, $k$-medoids clustering, edited nearest neighbors, condensed nearest neighbors.
+%   Bayesian Networks, Mixture Models, Chow-Liu Trees
+\end{keywords}
+
+\section{Introduction}
+The purpose of this project is to implement two different types of neural networks: a multi-layer feedforward neural network with backpropagation learning, and a radial basis function neural network. Both of these neural networks were tasked to perform classification and regression upon six datasets. Our radial basis function neural network uses as its hidden layer the centroids from $k$-means clustering, the medoids from $k$-medoids clustering, and the reduced training set from either edited or condensed nearest neighbors (whichever of edited/condensed has less examples).
+
+%The purpose of this project is to implement five different instance-based learning algorithms: $k$-nearest neighbors, edited nearest neighbors, condensed nearest neighbors, $k$-means clustering, and $k$-medoids clustering. To apply these functions, we perform classification or regression to each individual data set from the six data sets via 10-fold cross-validation. These six data sets we use include Abalone, Car Evaluation, Image Segmentation, Computer Hardware, Forest Fires, and Wine Quality, found on the UCI Machine Learning Repository.
+
+\section{Problem Statement}
+In this project we are attempting to answer the question, "Does a feedforward neural network perform better on average for both classification- and regression-based datasets than a radial basis function neural network?" To answer this question, there are several other problems we must tackle beforehand.
+
+The first of these problems is to decide how we must pre-process the data. We need to pre-process our data sets to rid ourselves of the burdens of man-made input errors and any missing attribute values, as well as store useful information about each database for later use.
+
+To determine the accuracy of our neural networks, for classification-based datasets, we will simply access the percentage of correctly classified examples, and for regression-based datasets, the smaller the average distance from the actual regression value our network calculates, the more accurate the model.
+
+% In this project we are attempting to answer the question, "Does a reduction in the data set, by way of clustering or filtering the data itself, improve the accuracy of our learning algorithms?" To answer this question, there are several other problems we must tackle beforehand. 
+
+
+
+% Next, we have to utilize our five instance-based learning algorithms to create respective models of classification and regression. We can then use these models to make predictions about the data set for any newly introduced data.
+
+% To determine the accuracy of our learning models, we use 10-fold cross-validation. This allows us to assess the accuracy of our models over the entire data set with multiple tests. Next, we use loss functions to quantify the accuracy of our models.
+
+% As we have three classification data sets and three regression data sets. We need a separate loss function for each kind of data set. For classification, we used 0-1 Loss and for regression we used Mean Squared Error. Given a correct classification $y$ and a predicted classification $y'$, we can define 0-1 Loss $L$ as
+
+% \begin{center}
+%     $$
+%     L(y, y') = 
+%     \begin{cases}
+%         1 & \text{if $y = y'$} \\
+%         0 & \text{if $y \neq y'$}
+%     \end{cases}
+%     $$
+% \end{center}
+
+% Meanwhile, Mean Squared Error, or $MSE$, can be defined as 
+
+% \begin{center}
+%     $MSE(y,y') = \frac{1}{n} \sum_{i=0}^n (y_i-y_i')$
+% \end{center}
+
+% for each true regression value $y_i$ and each predicted regression value $y'_i$, for each set of $n$ data examples [3]. 
+
+% Next, we compare the accuracy of the reduced data set models in relation to the non-reduced data set models.
+
+\section{Hypotheses}
+We hypothesize that the convergence rate for our feedforward neural network will be greater overall than our radial basis neural network because we will backpropagate upon potentially multiple hidden layers across multiple mini-batches, while the radial basis neural network backpropagates upon just one hidden layer of just one collection of neurons, the latter amounting to generally less operations to converge by than the former.
+
+We also hypothesize that the feedforward neural network will be more accurate at both classification and regression than then radial basis function neural network because the radial basis neural network is limited to one hidden layer, unlike the feedforward neural network.
+
+%In the data sets that we are attempting to classify, Abalone, Car Evaluation, and Image Segmentation, we hypothesize that $k$-nearest neighbors after having used condensed nearest neighbors and edited nearest neighbors to reduce the training data will produce a more accurate model for prediction than using $k$-nearest neighbors without reducing the training data. That is to say that the $k$-nearest neighbors algorithm will produce a less accurate model than the condensed nearest neighbor and the edited nearest neighbor algorithm.
+
+%As for the data sets that we are attempting to perform regression against --- Computer Hardware, Forest Fires, and Wine Quality --- we hypothesize that using $k$-medoids clustering will create better training data to run $k$-nearest neighbors against, thus producing a more accurate learning model, rather than using $k$-means clustering given that $k$-medoids clustering is more robust to outliers than $k$-means clustering [1].
+
+\section{Our Approach}
+
+\subsection{Pre-Processing: Handling Missing Data}
+ We opted to not remove data with missing values that occurs in low quantities, as given the already-small size of the data sets we are working with for this assignment, we thought it best to retain as much data as possible for training purposes. 
+
+Rather, we decided to handle missing attribute values by replacing them with attributes selected randomly from a bootstrap distribution generated from all other data points in the database of the same attribute type that do not contain missing values. 
+
+It is also worth noting that we do not hard code the symbol used for checking for missing values, but rather the missing value symbol is determined in the configuration \texttt{.attr} file that is unique for each database. It was handled in this manner due to inconsistencies between data sets with respect to symbols representing missing data.
+
+\subsection{Pre-Processing: Handling Information About Attributes}
+Due to the fact that the databases had some uniqueness about them, rather than changing them directly to fit a generic format, we found it best to add a short configuration file for each database that would determine certain values when running our code. This way, we can both easily customize our parameters, and not have to rely on something primitive like command line user input. 
+
+The configuration file being referred to is the \texttt{.attr} file that exists in the directory of each database. it is required that the respective attribute configuration file (\texttt{.attr} file) has the same prefix as the \texttt{.data} file for the database in order to function, as our code base looks for the \texttt{.data} file in the database directory specified, and then uses the prefix of the file name when locating the attribute file. 
+
+The attribute file contains things like the column headers, column index of the attribute we want to classify, a list of indexes of the parameters used for classification, and a line that will be used as the 'missing symbol'. When running the program, these values are loaded in after the user selects a database from the list presented, and used accordingly.
+
+\subsection{Pre-Processing: Differentiating Between Regression and Classification Databases}
+Seeing as the databases need to be run through different algorithms relevant to what type of data set they are, we added a field to the \texttt{.attr} (attributes) file in the database class that asserts what kinds of algorithms are able to be run on that particular data set. That attribute field is then loaded from the \texttt{.attr} configuration file when initializing a database object, storing it as a value of that object.
+
+% \subsection{Pre-processing: Algorithm Preparation}
+% In order for us to use the edited $k$-nearest neighbors algorithm, we must first set a portion of the data aside for use in validation. This is achieved by binning the data into 11 bins for 10-fold cross-validation, and removing one of these bins and setting it aside for validation. This validation data set is used during each iteration of the Edited $k$-nearest neighbors algorithm to assess the performance of the model.
+
+\subsection{Tuning}
+In order to improve the neural nets' learning process as much as possible, we tuned the learning rate of both the radial basis function neural network and the feedforward neural network by going through iterations of each dataset repeatedly and observing which learning rate lent to the best average behavior for each respective dataset.
+
+% It does so by computing the accuracy model for $k$-nearest neighbors with 10-fold cross-validation as a base line, then goes through and removes each attribute one at a time, rebuilding the model and computing 10-fold cross-validation for each one, and comparing the accuracy results between the base line and the current model minus an attribute to see if it has improved/worsened.
+
+% However, since the evaluation metric is different between classification and regression databases, we must differentiate between the two when comparing. We do this using the \texttt{.attr} attribute file mentioned earlier in Section 5.3. So now that we have a means of distinguishing them from each other, we must evaluate them properly. For comparing classification database attributes, it's easy, we just use our 0-1 Loss function as a representation of our predictive accuracy. So if the model minus an attribute has lower accuracy, we remove it from the set of attributes. Once this is done for each attribute, we show the results, and modify the \texttt{.attr} file's predictor value columns accordingly. In the case of a Regression database, it is fairly similar, however since we use Mean Squared Error as our measurement metric, we check if the model minus an attribute has greater Error, we remove it.
+
+% It is worth noting that this method is subjected to the hill climbing problem, so for some database's attributes list, it took an additional pass or two before finding what we believe to be the optimal attribute configuration, which we handled in a manner similar to LAHC [4].
+
+\section{The Neural Networks}
+We implemented two different neural networks for this project: a multi-layer feedforward network with backpropagation learning and a radial basis function neural network. Both of these networks will perform both classification and regression on every dataset. For the radial basis fuction neural network, we will implement three different variations of the network to perform classification and regression on all six datasets, for a total of 36 individual runs. For the three variations, the network will use as the node of its hidden layer the medoids produced from $k$-medoids cluster, the centroids from $k$-means clustering, and the reduced dataset from either condensed nearest neighbors or edited nearest neighbors (whichever produces a smaller dataset).
+
+% We implemented five instance-based learning algorithms for this project: $k$-nearest neighbors, edited nearest neighbors, condensed nearest neighbors, $k$-mean clustering, and $k$-medoids clustering. To perform  classification on Abalone, Car Evaluation, and Image Segmentation, and regression on Computer Hardware, Forest Fires, and Wine Quality, we ultimately must use the $k$-nearest neighbors algorithm.
+\subsection{Feedforward Neural Network}
+The activation functions used in our feedforward neural network is the sigmoid activation function for when the network is performing classification and linear for when the network is performing regression. To compute a predicted output for either classification or regression we apply weights between every neuron in one layer and every neuron in the next. We also apply one bias to each layer's weighted sum of activations. These weights and biases are initialized randomly, and backpropogation is used to adjust these weights over each epoch until we reach our indicated max number of total epochs.[5]
+
+The sigmoidal activation function can be expressed as $\sigma(x) = \frac{1}{1 + e^{-x}}$ where $x$ is some real number, in this case the weighted sum of the activations of the previous layer plus some bias. The linear activation function is simply the weighted sum of the activations in the previous layer plus some bias with no sigmoidal activation function applied.[5]
+
+\subsection{Radial Basis Function Neural Network}
+Based on the requirements of the assignment, our activation function for each neuron in the hidden layer of our radial basis function consists of the Gaussian: $exp(\frac{||x-\mu_i||^2}{\sigma})$, where $x$ is our input, $\mu_i$ is current example, and $\sigma_i$ is the standard deviation for the $i$th cluster [1]. To compute a predicted output for either classification or regression we apply weights between each neuron's activation and each output neuron. These weights and biases are initialized randomly, and backpropogation is used to adjust these weights over each epoch until we reach our indicated max number of total epochs.[4]
+
+\section{The Data-Reduction Algorithms}
+
+\subsection{$k$-Means Clustering}
+
+The $k$-means clustering is an algorithm that attempts to group examples with "similar" attribute values together. The algorithm does this by finding centroids. Centroids are generated examples within the range of possible values for each attribute in the examples, but the centroids themselves don't represent an example in the dataset.
+
+The algorithm initializes the first set of $k$ centroids randomly, each attribute staying within the respective range of possible values. Each example is then assigned to its "closest" centroid. For our experiments, we measured the closeness between two examples as a euclidean distance. For categorical variables, if two examples had different attribute values, the euclidean distance for that attribute would be 1; otherwise, it would be 0. The set of points assigned to a particular centroid becomes its respective cluster. For each cluster, a new centroid is found, the range of possible values being limited to that cluster. This process then repeats until the centroids converge (and don't deviate by some threshold) or you've exceed some maximum number of iterations. [1]
+
+\subsection{$k$-Medoids Clustering}
+
+The $k$-medoids clustering is an algorithm that, like $k$-means clustering, attempts to group examples with "similar" attribute values together. Unlike $k$-means clustering, though, $k$-medoids cluster is robust to outliers [2]. This is so because the medoids generated represent actual values from the data set.
+
+The algorithm begins be choosing $k$ random points from within the data set to be our initial medoids. $k$-medoids clustering then assigns every other data point in the data set to its closest medoid in exactly the same fashion. The set of points assigned to a particular medoid becomes its respective cluster. Now, to find new points within each cluster, you take every example in the cluster and find the example that yields the lowest within-cluster sum of squares. This medoid will then have the smallest variance between itself and all other points within the cluster. After a new medoid has been found in each cluster, repeat the point-assigning and medoid-finding process until the medoids converge (don't change) or exceed some maximum number of iterations. [2]
+
+\section{Results}
+Below are the results for each dataset for both the radial basis function neural network and the feedforward neural network. Epochs refers to the number of epochs we ran the algorithm for, Rate refers to our average rate of convergence, computed with the following formula: $\frac{\frac{S - E}{n}}{S - E} $, where $S$ and $E$ refer to either the number of correctly classified examples or the average distance the observed regression is from the desired regression after the first epoch, $S$, and the last epoch, $E$, and $n$ refers to the number of epochs we ran the neural network for. Success refers to the fraction of results we predicted correctly after fitting the model for classification data, or it refers to the average difference from the true regression value for regression datasets.
+
+\textbf{RBF} stands for radial basis function neural network, \textbf{FF} stands for feedforward neural network, and \textbf{NaN} stands for computations that we could unfortunately not compute in time to submit the assignment due to difficulties with out implementation:
+\subsection{Abalone} 
+
+\begin{center}
+\begin{tabular}{ |c|c|c|c|c|c|c| }
+\hline
+NN / Algorithm & Epochs & Rate & Success \\
+\hline
+RBF / ENN & 15 & 0.0667 & 689 / 4177 \\
+\hline
+RBF / K-Means & 100 & 0.01 & 634 / 4177 \\
+\hline
+RBF / K-Medoids & 100 & 0.01 & 634 / 4177 \\
+\hline
+FF  & $NaN$ & $NaN$ & $NaN$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Car Evaluation}
+\begin{center}
+\begin{tabular}{ |c|c|c|c|c|c|c| }
+\hline
+Algorithm & Epochs & Rate & Success \\
+\hline
+RBF / CNN & 100 & 0.01 & 493 / 1728 \\
+\hline
+RBF / K-Means & 100 & 0.01 & 630 / 1728 \\
+\hline
+RBF / K-Medoids & 100 & 0.01 & 684 / 1728 \\
+\hline
+FF & 100 & 0.01 & 926 / 1728 \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Forest Fires}
+\begin{center}
+\begin{tabular}{ |c|c|c|c|c|c|c| }
+\hline
+Algorithm & Epochs & Rate & Success \\
+\hline
+RBF / ENN & 15 & 0.667 & 12.795 \\
+\hline
+RBF / K-Means & 38 & 0.027 & 12.888 \\
+\hline
+RBF / K-Medoids & 5 & 0.2 & $NaN$ \\
+\hline
+FF & 100 & 0.01 & 35.2508 \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Computer Hardware}
+\begin{center}
+\begin{tabular}{ |c|c|c|c|c|c|c| }
+\hline
+Algorithm & Epochs & Rate & Success \\
+\hline
+RBF / ENN & 15 & 0.667 & \textit{NaN} \\
+\hline
+RBF / K-Means & 15 & 0.667 & \textit{NaN} \\
+\hline
+RBF / K-Medoids & 15 & 0.667 & \textit{NaN} \\
+\hline
+FF & 100 & 0.01 & 443.0757 \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Image Segmentation}
+\begin{center}
+\begin{tabular}{ |c|c|c|c|c|c|c| }
+\hline
+Algorithm & Epochs & Rate & Success \\
+\hline
+RBF / ENN & 100 & 0.01 & 34 / 210 \\
+\hline
+RBF / K-Means & 100 & 0.01 & 27 / 219 \\
+\hline
+RBF / K-Medoids & 100 & 0.01 & 31 /210 \\
+\hline
+FF & 100 & 0.01 & 114 / 210 \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection{Wine}
+\begin{center}
+\begin{tabular}{ |c|c|c|c|c|c|c| }
+\hline
+{Algorithm & Epochs & Rate & Success \\
+\hline
+RBF / ENN & 100 & 0.01 & 1.919 \\
+\hline
+RBF / K-Means & 100 & 0.01 & 1.936 \\
+\hline
+RBF / K-Medoids & 25 & 0.04 & 1.924 \\
+\hline
+FF & $NaN$ & $NaN$ & $NaN$ \\
+\hline
+\end{tabular}
+\end{center}
+
+% \begin{center}
+% \begin{tabular}{ |c|c|c|c|c|c|c| } 
+% \hline
+% $k=5$ & Abalone & Car & Forest Fires & Machine & Segmentation & Wine \\
+% \hline
+% K--NN & 0.7897& 0.6564&4800.653 & 8804.682 &.7532 & 0.1297\\
+% E--NN & 0.7897& 0.6782 & & &  & \\
+% C--NN & 0.8257& 0.6483 & & &  & \\ 
+% Kmeans--NN & 0.8979 & 0.7431 & 18498.489 &18432.352 & 0.6878 & 0.7562 \\
+% PAM--NN & 0.8576& 0.6986& 15263.325&.4215 & 0.7089 & 0.8267 \\
+% \hline
+% \end{tabular}
+% \end{center}
+
+% \begin{center}
+% \begin{tabular}{ |c|c|c|c|c|c|c| } 
+% \hline
+% $k=10$ & Abalone & Car & Forest Fires & Machine & Segmentation & Wine \\
+% \hline
+% K--NN & 0.7917 &0.6677 &4461.8141 &	8759.7087 &0.7619 &0.14294299201162 \\
+% E--NN & 0.7670 &0.6677 & & & & \\
+% C--NN & 0.7957 &0.6670 & & & & \\ 
+% Kmeans--NN &0.9962 &0.6677 &858.2252 &18045.8198 &0.8095 & 0.5398 \\
+% PAM--NN &0.7896 &0.6664 &15148.2835 & 0.3822 & 0.85714285714286 &0.9823\\
+% \hline
+% \end{tabular}
+% \end{center}
+
+\begin{center}
+% \begin{tabular}{ |c|c|c|c|c|c|c| } 
+% \hline
+% $k=15$ & Abalone & Car & Segmentation & Forest Fires & Machine & Wine \\
+% \hline
+% K--NN & 0.7853 & 0.6703 & 0.7672 & 4461.81 & 9211.40 & 0.1548 \\
+% E--NN & 0.7593 & 0.6697 &  & & & \\
+% C--NN & 0.7819 & 0.6684 & & & & \\ 
+% Kmeans--NN & 0.9859 & 0.6710 & 0.8148 & 0.7015 & .7630 & 0.7912 \\
+% PAM--NN & 0.7880 & 0.6801 & 0.8148 & 0.7287 & 0.7823 & 0.8173 \\
+% \hline
+% \end{tabular}
+\end{center}
+
+\section{Conclusions}
+Based on the results of our experiments, the radial basis function neural network had a higher rate of convergence on average than the feed forward neural network. That being said, it is difficult to compare the performance of the two neural networks as the feedforward neural network we implemented failed to run to completion on two of the data sets. This conclusion denies our hypothesis that the feedforward neural network will have a higher convergence rate than the radial basis function neural network.
+
+We also hypothesized that the feedforward neural network would be more accurate at both classification and regression than the radial basis neural network. This hypothesis has been both confirmed and denied by the results of our experiments. The feedforward neural network had a higher rate of correct classifications than the radial basis function neural network on the classification data sets, but in data sets where regression was performed, the radial basis function neural network had a lower average distance from the sought-after.
+
+% \subsection{Abalone}
+
+% \subsection{Car}
+
+% \subsection{Forest fires}
+
+% \subsection{Machine}
+
+% \subsection{Segmentation}
+
+
+% Acknowledgements should go at the end, before appendices and references
+
+\section{References}
+    \makebox[.5cm]{[1]} Alsabti, Khaled, Sanjay Ranka, and Vineet Singh. "An efficient k-means clustering algorithm." (1997).\par
+    \makebox[.5cm]{[2]} Jin, Xin, and Jiawei Han. "K-medoids clustering." Encyclopedia of Machine Learning and Data Mining (2017): 697-700.\par
+    \makebox[.5cm]{[4]} Cunningham, Padraig, and Sarah Jane Delany. "k-Nearest neighbour classifiers." Multiple Classifier Systems 34.8 (2007): 1-17.\par
+    \makebox[.5cm]{[5]} Militký, J. “Fundamentals of Soft Models in Textiles.” Soft Computing in Textile Engineering, 2011, pp. 45–102., doi:10.1533/9780857090812.1.45.\par
+    \makebox[.5cm]{[6]} Svozil, Daniel, Vladimir Kvasnicka, and Jiri Pospichal. "Introduction to multi-layer feed-forward neural networks." Chemometrics and intelligent laboratory systems 39.1 (1997): 43-62. \par
+
+\end{document}
