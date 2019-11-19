@@ -1,14 +1,83 @@
-\documentclass{article}
+ \documentclass{article}
+\usepackage[english]{babel}
 \usepackage[utf8]{inputenc}
+\usepackage{fancyhdr}
+\usepackage{fasy-hw}
 
-\title{CSCI 432 Final Project}
-\author{George Engel, Troy Oster, Gavin Austin, Thomas Herndon}
-\date{November 2019}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Project P-4: Identification of +1 Element}
+\rhead{Troy Oster, George Engel, Gavin Austin, Thomas Herndon}
 
 \begin{document}
+\textbf{Summary}
+\newline This is an extension of P-3.[4] The 'Problem Being Solved' and 'Pseudo-Code' sections are both exactly as they were for P-3, given the overlap between assignments. The 'Identification of the +1 Element' section can be found at the end of the document (below the pseudo-code).
 
-\maketitle
+\textbf{Problem Being Solved:}
+   \newline The Burrows-Wheeler transform is an algorithm created by Michael Burrows and David Wheeler in 1994 at the DEC Systems Research Center in California. It is primarily used in compression, as it transforms a character string into other strings of similar characters.[1] This algorithm was designed to solve a specific problem with compression, that is, the costly nature of data preparation for use in the data compression algorithms/techniques at the time. The Burrows-Wheeler transform algorithm solves this problem quite elegantly, simply by being faster than every other known data preparation technique when it was created.[1]
 
-\section{Introduction}
+   The important aspect to note about the transformation produced by this algorithm is that it is reversible. To be fully reversed, the transformation only needs to store the position of the original first character.[2] The Burrows-Wheeler transform improves the efficiency of almost all text compression algorithms, as it only costs a small amount of extra computation.[2] Due to this ability to improve compression efficiency, it is often used to prepare the data used in data/text compression techniques. 
+   
+   The basic explanation of the Burrows-Wheeler algorithm is that it takes in a string as an input and outputs a string composed of similar letters to those present in the input string. The output string is then composed of many repeated characters, which makes it easier to compress than the original input. This, through an optimization of the input, optimizes (almost) any compression algorithm used.[2]
+   
+   The transform performed by the Burrows-Wheeler algorithm is completed by creating circular shifts of text and then sorting them by lexicographic order. After sorting is complete, the last column and the index of the input string in the set of sorted permutations are extracted. The characters found in the last column are then concatenated and the resulting string is the output of the Burrows-Wheeler transform.[2]
+   
+   This algorithm, despite having been invented in 1994, is still used in many fields of research today. The primary field of use for the Burrows-Wheeler algorithm is Bioinformatics. Variations of this algorithm and more complex implementations of it, such as the Burrows-Wheeler Alignment (BWA), have been shown to be roughly ten to twenty times faster than other commonly used methods for alignment.[3]
+   
+   The pseudo-code for the implementation of the Burrows-Wheeler algorithm is shown below.[2]
+   
+\textbf{Pseudo-Code}
 
+    \begin{algorithm}
+    \caption{Reversible Transformation}
+    \textbf{Input:} A string $S$ of $N$ characters $\in$ some character alphabet $X$
+    
+    \textbf{Output:} A column $L$ of the character matrix
+        \begin{algorithmic}[1]
+            \Procedure{Compression\_Transform}{$S$}
+            \State M $\gets$ char[N][N]      \Comment{Define M as an N x N Matrix of chars}
+            \For{int i = 0; i $<$ len(S); i++}
+                \State M[i]$ \gets$ Shift(S,i) \Comment{Sets M[i] to the char set shifted by i}
+            \EndFor
+            \State lexicographic\_sort(M)
+            
+            \State $L \gets M.col(-1)$ \Comment{Set L as the last column from the matrix}
+            \State \textbf{return} $L$
+            \EndProcedure
+        \end{algorithmic}
+    \end{algorithm}
+\newpage
+    \begin{algorithm}
+        \caption{Decompression Transformation}
+        \textbf{Input:} The output column $L$ from Algorithm 1
+    
+    \textbf{Output:} A string $S$
+        \begin{algorithmic}[1]
+            \Procedure{Decompression\_Transform}{$L$}
+            \State $F \gets lexicographic\_sort(L)$
+            \State initialize($M$)\Comment{A table that will eventually hold M from Algorthim 1}
+            \For{int i = 0; i $<$ len(L); i++}
+                \State M.prepend(S) \Comment{Prepend the string $L$ to the table $M$}
+                \State lexicographic\_sort(M)
+            \EndFor
+           \State $I\gets 0$
+            \While{M[I][n-1]!=EOF}
+                \State $I\gets I+1$
+            \EndWhile
+            \State $S \gets M[I]$ \Comment{Set S as the row that ends in a end of file character}
+            \State $return$ $S$
+            \EndProcedure
+        \end{algorithmic}
+    \end{algorithm}
+    
+    \textbf{Identification of the +1 Element}
+    \newline For our +1 Element, we decided to implement the algorithm in python, with breaks and verbose output that make it easy to follow. To compliment this, we will be going through a simple problem using the same algorithm on paper and comparing the output to that of our implementation of the algorithm; the goal being to demonstrate how the algorithm works and that our implementation functions as intended.
+    
+    As for the simple problem mentioned above, we have yet to decide on a specific example due to not yet knowing what example would work best with both our planned implementation along side a paper walk through, but we do want to base the example input/output data off of something relating to Bozeman/MSU. There is a high probability the input string will be 'bobcat'.
+       
+   \textbf{References}
+   \newline \makebox[.5cm]{[1]} Adjeroh, Donald, et al. The Burrows-Wheeler Transform: Data Compression, Suffix Arrays, and Pattern Matching. Springer, 2011.\par
+    \makebox[.5cm]{[2]}  Burrows, Michael; Wheeler, David J. (1994), A block sorting lossless data compression algorithm, Technical Report 124, Digital Equipment Corporation\par
+    \makebox[.5cm]{[3]} Heng Li, Richard Durbin, Fast and accurate short read alignment with Burrows–Wheeler transform, Bioinformatics, Volume 25, Issue 14, 15 July 2009, Pages 1754–1760, https://doi.org/10.1093/bioinformatics/btp324\par
+    \makebox[.5cm]{[4]} Oster, Troy; Engel, George; Austin, Gavin; Herndon, Thomas. (2019). Project P-3. Unpublished project part. Montana State University.\par
 \end{document}
