@@ -1,8 +1,11 @@
+import colors
+import os
 # This is where any implementations of algorithms will take place for testing purposes/Project demonstraition for the Video.
 
 # TODO: Add Verbos Implentation
 # TODO Add stepping
 
+    
 # Compresses the string
 def burrows_wheeler_transform(S):
     # L is the resulting output string
@@ -43,8 +46,19 @@ def print_M(M):
     for row in M:
         print(row)
 
+# Prints text in the specified color
+def print_color(text, color):
+    # Enables the VT100 Escape Sequence for windows 10 ver. 1607
+    # Credit to Guestreader for the windows 10 fix @: https://stackoverflow.com/questions/16755142/how-to-make-win32-console-recognize-ansi-vt100-escape-sequences
+    os.system('')
+    print(color + text + colors.CEND)
+
 result = burrows_wheeler_transform("^BANANA")
 
 print("\nEncoded Result:", result)
 
-print("Decoded Result:", inverse_burrows_wheeler_transform(result))
+print("\nDecoded Result:", inverse_burrows_wheeler_transform(result))
+
+import os
+
+print_color("VALIDATION: ", colors.CGREEN)
