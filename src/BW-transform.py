@@ -59,6 +59,43 @@ print("\nEncoded Result:", result)
 
 print("\nDecoded Result:", inverse_burrows_wheeler_transform(result))
 
-import os
+def print_format_table():
+    """
+    prints table of formatted text format options
+    """
+    for style in range(8):
+        for fg in range(30,38):
+            s1 = ''
+            for bg in range(40,48):
+                format = ';'.join([str(style), str(fg), str(bg)])
+                s1 += '\x1b[%sm %s \x1b[0m' % (format, format)
+            os.system('')
+            print(s1)
+        print('\n')
+        
+def print_colored_string(string):
+    """
+    prints table of formatted text format options
+    """
+    text_color = 30 # Black
+    bg_color = 41 # up to 47
+    
+    colored_string = ""
+    for char in string:
+        format = ';'.join(["2", "30", str(bg_color)])
+        colored_string += '\x1b[%sm %s \x1b[0m' % (format, char)
+        
+        # Increment the color & check it is still within bounds
+        bg_color += 1
+        if bg_color > 47:
+            bg_color = 41
+        
+    os.system('')
+    print(colored_string)
+
+        
+#print_format_table()
 
 print_color("VALIDATION: ", colors.CGREEN)
+
+print_colored_string("Row Test")
