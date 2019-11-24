@@ -2,7 +2,6 @@ import colors
 import os
 # This is where any implementations of algorithms will take place for testing purposes/Project demonstraition for the Video.
 
-# TODO: Add Verbos Implentation
 # TODO Add stepping
 
     
@@ -42,9 +41,6 @@ def inverse_burrows_wheeler_transform(L):
 # TODO: Manual Walkthrough (Task to Tommy?) 
 
 def print_colored_string(string):
-    """
-    prints table of formatted text format options
-    """
     text_color = 30 # Black
     bg_color = 41 # up to 47
     
@@ -57,7 +53,9 @@ def print_colored_string(string):
         bg_color += 1
         if bg_color > 47:
             bg_color = 41
-        
+    
+    # Enables the VT100 Escape Sequence for windows 10 ver. 1607
+    # Credit to Guestreader for the windows 10 fix @: https://stackoverflow.com/questions/16755142/how-to-make-win32-console-recognize-ansi-vt100-escape-sequences
     os.system('')
     print(colored_string)
     
@@ -75,27 +73,7 @@ def print_color(text, color):
 
 result = burrows_wheeler_transform("^BANANA")
 
-print("\nEncoded Result:", result)
 
-print("\nDecoded Result:", inverse_burrows_wheeler_transform(result))
+print_color("\nEncoding Result:" + result, colors.CGREEN)
 
-def print_format_table():
-    """
-    prints table of formatted text format options
-    """
-    for style in range(8):
-        for fg in range(30,38):
-            s1 = ''
-            for bg in range(40,48):
-                format = ';'.join([str(style), str(fg), str(bg)])
-                s1 += '\x1b[%sm %s \x1b[0m' % (format, format)
-            os.system('')
-            print(s1)
-        print('\n')
-
-        
-#print_format_table()
-
-print_color("VALIDATION: ", colors.CGREEN)
-
-print_colored_string("Row Test")
+print_color("\nDecoded Result:" + inverse_burrows_wheeler_transform(result), colors.CGREEN)
