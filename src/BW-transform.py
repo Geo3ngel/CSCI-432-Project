@@ -2,9 +2,6 @@ import colors
 import os
 # This is where any implementations of algorithms will take place for testing purposes/Project demonstraition for the Video.
 
-# TODO Add stepping
-
-    
 # Compresses the string
 def burrows_wheeler_transform(S):
     # L is the resulting output string
@@ -13,6 +10,9 @@ def burrows_wheeler_transform(S):
     # Form all cyclic rotations of S
     for i in range(0, len(S)):
         M.append(S[i:]+S[:i])
+        print_M(M)
+        step()
+        
         
     # Sort the rotations Lexicographically
     M.sort()
@@ -32,6 +32,9 @@ def inverse_burrows_wheeler_transform(L):
         # Insert L as the first column of the table
         for j in range(len(L)):
             M[j] = L[j] + M[j]
+        print_M(M)
+        step()
+        
         # Alphabetically sort the rows of the table
         M.sort()
     print_M(M)
@@ -70,10 +73,18 @@ def print_color(text, color):
     # Credit to Guestreader for the windows 10 fix @: https://stackoverflow.com/questions/16755142/how-to-make-win32-console-recognize-ansi-vt100-escape-sequences
     os.system('')
     print(color + text + colors.CEND)
+    
+def step():
+    try:
+        input("Press a key to continue")
+    except SyntaxError:
+        pass
 
 result = burrows_wheeler_transform("^BANANA")
 
 
 print_color("\nEncoding Result:" + result, colors.CGREEN)
+
+step()
 
 print_color("\nDecoded Result:" + inverse_burrows_wheeler_transform(result), colors.CGREEN)
