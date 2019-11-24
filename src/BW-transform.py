@@ -1,10 +1,12 @@
 # This is where any implementations of algorithms will take place for testing purposes/Project demonstraition for the Video.
 
-# TODO: Verbos Implentation w/ stepping
+# TODO: Add Verbos Implentation
+# TODO Add stepping
 
 # Compresses the string
 def burrows_wheeler_transform(S):
-    L = []
+    # L is the resulting output string
+    L = ""
     M = []
     # Form all cyclic rotations of S
     for i in range(0, len(S)):
@@ -15,16 +17,25 @@ def burrows_wheeler_transform(S):
     
     # Output last column.
     print_M(M)
-    output = ""
     for i in range(0, len(M)):
-        output += M[i][-1]
+        L += M[i][-1]
         
-    return output
+    return L
 
 # Decompresses the string
 def inverse_burrows_wheeler_transform(L):
-    pass
-    return S
+    # This initializes the rows for the table as empty strings
+    M = [""] * len(L)
+    for i in range(0, len(L)):
+        # Insert L as the first column of the table
+        for j in range(len(L)):
+            M[j] = L[j] + M[j]
+        # Alphabetically sort the rows of the table
+        M.sort()
+    print_M(M)
+    
+    # Return the last row as the result
+    return M[-1]
 # TODO: Manual Walkthrough (Task to Tommy?) 
 
 # Prints out the matrix
@@ -32,4 +43,8 @@ def print_M(M):
     for row in M:
         print(row)
 
-print("\nResult:", burrows_wheeler_transform("^BANANA"))
+result = burrows_wheeler_transform("^BANANA")
+
+print("\nEncoded Result:", result)
+
+print("Decoded Result:", inverse_burrows_wheeler_transform(result))
