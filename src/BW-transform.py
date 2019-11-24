@@ -41,10 +41,30 @@ def inverse_burrows_wheeler_transform(L):
     return M[-1]
 # TODO: Manual Walkthrough (Task to Tommy?) 
 
+def print_colored_string(string):
+    """
+    prints table of formatted text format options
+    """
+    text_color = 30 # Black
+    bg_color = 41 # up to 47
+    
+    colored_string = ""
+    for char in string:
+        format = ';'.join(["2", "30", str(bg_color)])
+        colored_string += '\x1b[%sm %s \x1b[0m' % (format, char)
+        
+        # Increment the color & check it is still within bounds
+        bg_color += 1
+        if bg_color > 47:
+            bg_color = 41
+        
+    os.system('')
+    print(colored_string)
+    
 # Prints out the matrix
 def print_M(M):
     for row in M:
-        print(row)
+        print_colored_string(row)
 
 # Prints text in the specified color
 def print_color(text, color):
@@ -72,26 +92,6 @@ def print_format_table():
             os.system('')
             print(s1)
         print('\n')
-        
-def print_colored_string(string):
-    """
-    prints table of formatted text format options
-    """
-    text_color = 30 # Black
-    bg_color = 41 # up to 47
-    
-    colored_string = ""
-    for char in string:
-        format = ';'.join(["2", "30", str(bg_color)])
-        colored_string += '\x1b[%sm %s \x1b[0m' % (format, char)
-        
-        # Increment the color & check it is still within bounds
-        bg_color += 1
-        if bg_color > 47:
-            bg_color = 41
-        
-    os.system('')
-    print(colored_string)
 
         
 #print_format_table()
