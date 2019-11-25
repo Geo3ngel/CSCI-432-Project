@@ -79,8 +79,8 @@ def step():
         input("Press a key to continue")
     except SyntaxError:
         pass
-
-result = burrows_wheeler_transform("^BANANA")
+# "^BANANA"
+result = burrows_wheeler_transform(input("Enter String to Encode: "))
 
 
 print_color("\nEncoding Result:" + result, colors.CGREEN)
