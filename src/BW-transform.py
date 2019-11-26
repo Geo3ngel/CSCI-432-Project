@@ -41,7 +41,6 @@ def inverse_burrows_wheeler_transform(L):
     
     # Return the last row as the result
     return M[0]
-# TODO: Manual Walkthrough (Task to Tommy?) 
 
 def print_colored_string(string):
     text_color = 30 # Black
