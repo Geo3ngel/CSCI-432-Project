@@ -79,7 +79,7 @@ def step():
     except SyntaxError:
         pass
 # "^BANANA"
-result = burrows_wheeler_transform(input("Enter String to Encode: "))
+result = burrows_wheeler_transform(chr(0)+input("Enter String to Encode: "))
 
 
 print_color("\nEncoding Result:" + result, colors.CGREEN)
