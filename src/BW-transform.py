@@ -40,7 +40,7 @@ def inverse_burrows_wheeler_transform(L):
     print_M(M)
     
     # Return the last row as the result
-    return M[-1]
+    return M[0]
 # TODO: Manual Walkthrough (Task to Tommy?) 
 
 def print_colored_string(string):
