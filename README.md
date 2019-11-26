@@ -22,9 +22,9 @@ Investigate three different algorithms. For each algorithm, you must identify th
 
 George: 100% COMPLETED
 - Chose bi-directional breadth first search.
-Troy: 0%
-Gavin: 0%
-Tommy: 0%
+Troy: 100%
+Gavin: 100%
+Tommy: 100%
 
 ## Part 3: 
 
@@ -34,28 +34,31 @@ Selection of algorithm: You must select the algorithm that you will be investiga
 The deliverable is an (up to) two-page write-up identifying the problem being solved and providing pseudo-code for the algorithm itself. Not all steps need to be fully explained, but the general essence of the algorithm should be clear. 10 points.
 * Due Date: 11th of November 2019
 
+-COMPLETED
+
 ### Project part status:
 
 - Need to select Algorithm, preferably one that we have a clear idea of our +1 for: NOT COMPLETED
-- Write up problem statement: 0%
-- Write up explanation of Algorithm: 0%
-- Write up Pseudo code for Algorithm: 0%
-- Provide time complexity (probably to be included in the explanation, no need to necessarily 'prove' it: NOT COMPLETED
+- Write up problem statement: 100% - COMPLETED
+- Write up explanation of Algorithm: 100% - COMPLETED
+- Write up Pseudo code for Algorithm: 100% - COMPLETED
+- Provide time complexity 100% - COMPLETED
 
 ## Part 4: 
 
 * Deliverable: Up to three page write up
 * Due Date: 18th of November
+100% - COMPLETED
 
 ### Project part status: 
 
 Identify the +1 element of your project. Essentially mproving the algorithm in some way, be it speed, clarity, additional feature. explain the analysis of the algorithm in a different way than provided in the paper, provide a runtime analysis if there is none, compare it against two or three other algorithms, walk through an example or two, explain the algorithm more clearly/concisely than the original publication, thoroughly explaining one of their proofs, etc. You are free to be as creative as you want for your +1 element, but I highly suggest you discuss this with the instructor or TA before this deadline. 
  
-- Identify +1 element of the Algorithm (Improvement): NOT COMPLETED
-- Write up for identifying/defining the problem: 0%
-- Provide Pseudo code for the algorithm with the +1 element: 0%
-- Identify/Explaining our +1 Element: 0%
-- Provide run time analysis of pseudo code with the +1 Element and compare it to the origional algorithm's run time analysis: 0%
+- Identify +1 element of the Algorithm (Improvement): 100% - COMPLETED
+- Write up for identifying/defining the problem: 100% - COMPLETED
+- Provide Pseudo code for the algorithm with the +1 element: 100% - COMPLETED
+- Identify/Explaining our +1 Element: 100% - COMPLETED
+- Provide run time analysis of pseudo code with the +1 Element and compare it to the origional algorithm's run time analysis: 100% - COMPLETED
 
 ## Part 5: 
 
